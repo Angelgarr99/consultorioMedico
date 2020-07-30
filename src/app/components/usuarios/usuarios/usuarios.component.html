@@ -1,18 +1,56 @@
-<button class="btn btn-danger" routerLink="/usuarios">
-    <i class="fas fa-arrow-left" aria-hidden="true"></i>
-    Regresar
-</button>
+<h1> Administrar <small>Usuarios</small> </h1>
 
-<button class="btn btn-primary" routerLink="/heroe/nuevo">
-    <i class="fa fa-plus"></i>
-    Agregar
-</button>
+<hr>
+<div class="row">
+    <div class="col text-right">
+        <button class="btn btn-primary" [routerLink]="['/usuario']">
+            <i class="fa fa-plus"></i>
+            Agregar
+        </button>
+    </div>
+</div>
 
-<div class="slider-wrap">
-    <div class="single-slide" id="slide-1"></div>
-    <div class="single-slide" id="slide-2"></div>
-    <div class="single-slide" id="slide-3"></div>
-    <div class="single-slide" id="slide-4"></div>
-    <div class="single-slide" id="slide-5"></div>
-    
-  </div>
+<table class="table mt-3 animate__animated animate__fadeIn animate__faster" >
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Herramientas</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr >
+            <th scope="row">1</th>
+            <td>Leocadio Castillo Aguilar</td>
+            <td class="text text-center">
+                20
+            </td>
+            <td>leocadiocastillo</td>
+
+            <td>
+                <button class="btn btn-outline-info mr-1"> <i class="fas fa-pen"></i> Editar</button>
+                <button class="btn btn-outline-danger" type="button" ><i class="fas fa-trash" ></i> Eliminar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="alert alert-warning text-center mt-3 animate__animated animate__fadeIn animate__faster">
+    <h4 class="alert-heading"> No hay registros</h4>
+    <p>
+        <i class="fas fa-exclamation fa-2x"></i>
+    </p>
+</div>
+
+<div class="alert alert-info text-center mt-3 animate__animated animate__fadeIn animate__faster">
+    <h4 class="alert-heading"> Cargando</h4>
+    <p>
+        <i class="fas fa-spinner fa-spin fa-2x"></i>
+    </p>
+    <p class="mb-0">
+        Espere porfavor
+    </p>
+
+</div>

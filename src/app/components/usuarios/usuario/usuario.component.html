@@ -1,1 +1,146 @@
-<p>usuario works!</p>
+<h4>Usuarios <small> Administrar </small></h4>
+<hr>
+<div class="row text-right">
+    <div class="col">
+        <button class="btn btn-danger" [routerLink]="['/usuarios']">
+            <i class="fas fa-arrow-left" aria-hidden="true"></i>
+            Regresar
+        </button>
+    </div>
+</div>
+
+<form autocomplete="off" >
+
+    <!-- Datos Personales -->
+    <h4><small><b> Datos Personales  </b></small></h4>
+    <hr>
+    <!-- Nombre -->
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Nombre(s)</label>
+        <div class="col">
+            <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre" >
+           
+        </div>
+    </div>
+    <!--Apellido -->
+    <div class="form-group row" formGroupName="apellidos">
+        <label class="col-2 colform-label">Apellidos</label>
+        <div class="form-row col">
+            <div class="col">
+                <input class="form-control" type="text" placeholder="Primer Apellido" formControlName="apellido1" >
+                 
+            </div>
+            <div class="col">
+                <input class="form-control" type="text" placeholder="Segundo Apellido" formControlName="apellido2" >
+            </div>
+        </div>
+    </div>
+    <!-- CURP -->
+    <div class="form-group row">
+        <label class="col-2 col-form-label">CURP</label>
+        <div class="col">
+            <input class="form-control" type="text" placeholder="C.U.R.P." formControlName="curp" >
+        </div>
+    </div>
+    <!-- CP -->
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Código Postal</label>
+        <div class="col">
+        </div>
+    </div>
+    <!-- Estado y Ciudad -->
+    <div class="form-group row" formGroupName="direccion">
+        <label class="col-2 colform-label">Domicilio</label>
+        <div class="form-row col">
+            <div class="col">
+                <input class="form-control" type="text" placeholder="Estado" formControlName="estado" >
+            </div>
+            <div class="col">
+                <input class="form-control" type="text" placeholder="Ciudad" formControlName="ciudad" >
+            </div>
+        </div>
+    </div>
+    <!-- Colonia, Calle y numero -->
+    <div class="form-group row" formGroupName="direccion">
+        <label class="col-2 colform-label"></label>
+        <div class="form-row col">
+            <div class="col">
+                <input class="form-control" type="text" placeholder="Colonia/Barrio" formControlName="colonia">
+            </div>
+            <div class="col">
+                <input class="form-control" type="text" placeholder="Calle" formControlName="calle" >
+            </div>
+            <div class="col">
+                <input class="form-control" type="text" placeholder="Numero" formControlName="numero" >
+            </div>
+        </div>
+    </div>
+    <h4><small><b> Contacto</b></small></h4>
+    <hr>
+    <!-- Email -->
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">correo Electronico</label>
+        <div class="col">
+            <input class="form-control" type="text" placeholder="Ej. example@medicam.com" formControlName="correo">
+        </div>
+    </div>
+    <!-- Telefono  -->
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Telefono</label>
+        <div class="col">
+            <input class="form-control" type="text" placeholder="Ej. 555-555-55-55" formControlName="telefono">
+        </div>
+    </div>
+    <h4><small><b> Usuario</b></small></h4>
+    <hr>
+    <!-- usuario -->
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Usuario</label>
+        <div class="col">
+            <input class="form-control" type="text" placeholder="Nombre de usuario" formControlName="usuario">
+        </div>
+    </div>
+    <!-- Contraseñas -->
+    <div class="form-group row" formGroupName="contrasena">
+        <label class="col-2 colform-label">Contraseña</label>
+        <div class="form-row col">
+            <div class="col">
+                <input class="form-control" type="password" placeholder="Escriba contraseña" formControlName="pass1" >
+            </div>
+            <div class="col">
+                <input class="form-control" type="password" placeholder="Repita contraseña" formControlName="pass2" >
+            </div>
+        </div>
+    </div>
+
+    <!-- ¿es doctor? -->
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="input-group col-md">
+            <button class="btn btn-outline-success btn-block" (click)=" medico = !medico" type="button"> ¿Es usted medico? </button>
+        </div>
+    </div>
+    <div class="form-group row" >
+        <label class="col-2 col-form-label">Cedula Profesional</label>
+        <div class="col">
+            <input class="form-control" type="text" placeholder="Ej. 000000000" formControlName="cedula">
+           
+        </div>
+    </div>
+    <div class="item">
+        <input #inputFile class="hidden" type="file"   accept="image/*">
+        <button mat-raised-button class="btn btn-primary" type="button" >Upload</button>
+    </div>
+    <hr>
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="input-group col-md">
+            <button type="button"  class="btn btn-outline-primary btn-block">
+        Guardar
+      </button>
+        </div>
+    </div>
+
+</form>
+
