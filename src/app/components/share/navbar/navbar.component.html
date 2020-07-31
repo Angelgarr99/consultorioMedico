@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #7ec9ff;">
-  <a class="navbar-brand" href="#">home</a>
+    <img src="assets/logo1.png" style="width: 250px;" [routerLink]="['/home']">
+  
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -27,7 +28,7 @@
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" [routerLink]="['/usuarios']" routerLinkActive="router-link-active">Mis Datos</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" [routerLink]="['logout']">Cerrar Sesion</a>
+                  <a class="dropdown-item" [routerLink]="['/home']">Cerrar Sesion</a>
               </div>
           </li>
       </ul>

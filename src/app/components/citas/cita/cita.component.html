@@ -1,1 +1,312 @@
-<p>cita works!</p>
+<h4>Solicitar Cita </h4>
+<hr>
+<div class="card-columns">
+    <div class="card text-center" >
+        <br>
+        <img src="assets/d1.jpg" id="d1" class="card-img-top" alt="Card image cap" style="width: 120px; height: 120px;">
+        <div class="card-body">
+            <h5 class="card-title">Javier Hurtado</h5>
+            <p class="card-text">Cardiólogo</p>
+            <!-- <button class="btn btn-primary" > Agendar Cita</button> -->
+            <button  class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Agendar Cita</button>
+            <hr>
+        </div>
+    </div>
+    <div class="card text-center" >
+        <br>
+        <img src="assets/d2.jpg" class="card-img-top" alt="Card image cap" style="width: 120px; height: 120px;">
+        <div class="card-body">
+            <h5 class="card-title">Agustín Pérez Lara</h5>
+            <p class="card-text">Pediatra</p>
+            <button  class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Agendar Cita</button>
+            <hr>
+        </div>
+    </div>
+    <div class="card text-center" >
+        <br>
+        <img src="assets/d3.jpg" class="card-img-top" alt="Card image cap" style="width: 120px; height: 120px;">
+        <div class="card-body">
+            <h5 class="card-title">Itzel Quiroz Olarte</h5>
+            <p class="card-text">Médico Cirujano</p>
+            <button  class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3" data-whatever="@mdo">Agendar Cita</button>
+            <hr>
+        </div>
+    </div>
+    <div class="card text-center" >
+        <br>
+        <img src="assets/d4.jpg" id="" class="card-img-top" alt="Card image cap" style="width: 120px; height: 120px;">
+        <div class="card-body">
+            <h5 class="card-title">Pablo Gutierrez Salas</h5>
+            <p class="card-text">Médico Partero</p>
+            <button  class="btn btn-primary" data-toggle="modal" data-target="#exampleModal4" data-whatever="@mdo">Agendar Cita</button>
+            <hr>
+        </div>
+    </div>
+    <div class="card text-center" >
+        <br>
+        <img src="assets/d5.jpg" class="card-img-top" alt="Card image cap" style="width: 120px; height: 120px;">
+        <div class="card-body">
+            <h5 class="card-title">Issac Torres González</h5>
+            <p class="card-text">Podólogo</p>
+            <button  class="btn btn-primary" data-toggle="modal" data-target="#exampleModal5" data-whatever="@mdo">Agendar Cita</button>
+            <hr>
+        </div>
+    </div>
+    <div class="card text-center" >
+        <br>
+        <img src="assets/d6.jpg" class="card-img-top" alt="Card image cap" style="width: 120px; height: 120px;">
+        <div class="card-body">
+            <h5 class="card-title">Javier Hurtado Domínguez</h5>
+            <p class="card-text">Ginecólogo</p>
+            <button  class="btn btn-primary" data-toggle="modal" data-target="#exampleModal6" data-whatever="@mdo">Agendar Cita</button>
+            <hr>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div  class="alert alert-warning text-center mt-3 animate__animated animate__fadeIn animate__faster">
+    <h4 class="alert-heading"> No hay registros</h4>
+    <p>
+        <i class="fas fa-exclamation fa-2x"></i>
+    </p>
+</div>
+
+<div  class="alert alert-info text-center mt-3 animate__animated animate__fadeIn animate__faster">
+    <h4 class="alert-heading"> Cargando</h4>
+    <p>
+        <i class="fas fa-spinner fa-spin fa-2x"></i>
+    </p>
+    <p class="mb-0">
+        Espere porfavor
+    </p>
+<!--MODAL-->
+<div  class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" >
+    <div class="modal-content" style="width: 800px;">
+      <div class="modal-header">
+        <img src="assets/d1.jpg" class="card-img-top" alt="Card image cap" style="width: 120px; height: 120px;">
+        <div class="card-body">
+            <h5 class="card-title">Javier Hurtado</h5>
+            <p class="card-text">Cardiólogo</p>
+        </div>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label class="col-2 colform-label">Fecha y Hora</label>
+                <div class="form-row col">
+                    <div class="col">
+                        <input class="form-control" type="date" formControlName="fecha" >
+                 
+                    </div>
+                    <div class="col">
+                        <input class="form-control" type="time" placeholder="Segundo Apellido" formControlName="apellido2" >
+                    </div>
+                </div>
+            </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Comentarios:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Registrar Cita</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--MODAL2-->
+<div  class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" >
+      <div class="modal-content" style="width: 800px;">
+        <div class="modal-header">
+          <img src="assets/d2.jpg" class="card-img-top" alt="Card image cap" style="width: 120px; height: 120px;">
+          <div class="card-body">
+              <h5 class="card-title">Agustín Pérez Lara</h5>
+              <p class="card-text">Pediatra</p>
+          </div>
+        </div>
+        <div class="modal-body">
+          <form>
+              <div class="form-group">
+                  <label class="col-2 colform-label">Fecha y Hora</label>
+                  <div class="form-row col">
+                      <div class="col">
+                          <input class="form-control" type="date" formControlName="fecha" >
+                   
+                      </div>
+                      <div class="col">
+                          <input class="form-control" type="time" placeholder="Segundo Apellido" formControlName="apellido2" >
+                      </div>
+                  </div>
+              </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Comentarios:</label>
+              <textarea class="form-control" id="message-text"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Registrar Cita</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--MODAL3-->
+<div  class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" >
+      <div class="modal-content" style="width: 800px;">
+        <div class="modal-header">
+          <img src="assets/d3.jpg" class="card-img-top" alt="Card image cap" style="width: 120px; height: 120px;">
+          <div class="card-body">
+              <h5 class="card-title">Itzel Quiroz Olarte</h5>
+              <p class="card-text">Médico Cirujano</p>
+          </div>
+        </div>
+        <div class="modal-body">
+          <form>
+              <div class="form-group">
+                  <label class="col-2 colform-label">Fecha y Hora</label>
+                  <div class="form-row col">
+                      <div class="col">
+                          <input class="form-control" type="date" formControlName="fecha" >
+                   
+                      </div>
+                      <div class="col">
+                          <input class="form-control" type="time" placeholder="Segundo Apellido" formControlName="apellido2" >
+                      </div>
+                  </div>
+              </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Comentarios:</label>
+              <textarea class="form-control" id="message-text"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Registrar Cita</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--MODAL4-->
+<div  class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" >
+      <div class="modal-content" style="width: 800px;">
+        <div class="modal-header">
+          <img src="assets/d4.jpg" class="card-img-top" alt="Card image cap" style="width: 120px; height: 120px;">
+          <div class="card-body">
+              <h5 class="card-title">Pablo Gutierrez Salas</h5>
+              <p class="card-text">Médico Partero</p>
+          </div>
+        </div>
+        <div class="modal-body">
+          <form>
+              <div class="form-group">
+                  <label class="col-2 colform-label">Fecha y Hora</label>
+                  <div class="form-row col">
+                      <div class="col">
+                          <input class="form-control" type="date" formControlName="fecha" >
+                   
+                      </div>
+                      <div class="col">
+                          <input class="form-control" type="time" placeholder="Segundo Apellido" formControlName="apellido2" >
+                      </div>
+                  </div>
+              </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Comentarios:</label>
+              <textarea class="form-control" id="message-text"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Registrar Cita</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--MODAL5-->
+<div  class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" >
+      <div class="modal-content" style="width: 800px;">
+        <div class="modal-header">
+          <img src="assets/d5.jpg" class="card-img-top" alt="Card image cap" style="width: 120px; height: 120px;">
+          <div class="card-body">
+              <h5 class="card-title">Issac Torres González</h5>
+              <p class="card-text">Podólogo</p>
+          </div>
+        </div>
+        <div class="modal-body">
+          <form>
+              <div class="form-group">
+                  <label class="col-2 colform-label">Fecha y Hora</label>
+                  <div class="form-row col">
+                      <div class="col">
+                          <input class="form-control" type="date" formControlName="fecha" >
+                   
+                      </div>
+                      <div class="col">
+                          <input class="form-control" type="time" placeholder="Segundo Apellido" formControlName="apellido2" >
+                      </div>
+                  </div>
+              </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Comentarios:</label>
+              <textarea class="form-control" id="message-text"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Registrar Cita</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--MODAL6-->
+<div  class="modal fade" id="exampleModal6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" >
+      <div class="modal-content" style="width: 800px;">
+        <div class="modal-header">
+          <img src="assets/d6.jpg" class="card-img-top" alt="Card image cap" style="width: 120px; height: 120px;">
+          <div class="card-body">
+              <h5 class="card-title">Javier Hurtado Domínguez</h5>
+              <p class="card-text">Ginecólogo</p>
+          </div>
+        </div>
+        <div class="modal-body">
+          <form>
+              <div class="form-group">
+                  <label class="col-2 colform-label">Fecha y Hora</label>
+                  <div class="form-row col">
+                      <div class="col">
+                          <input class="form-control" type="date" formControlName="fecha" >
+                   
+                      </div>
+                      <div class="col">
+                          <input class="form-control" type="time" placeholder="Segundo Apellido" formControlName="apellido2" >
+                      </div>
+                  </div>
+              </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Comentarios:</label>
+              <textarea class="form-control" id="message-text"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Registrar Cita</button>
+        </div>
+      </div>
+    </div>
+  </div>
