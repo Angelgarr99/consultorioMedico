@@ -6,6 +6,8 @@ import { UsuariosComponent } from './components/usuarios/usuarios/usuarios.compo
 import { CitasComponent } from './components/citas/citas/citas.component';
 import { UsuarioComponent } from './components/usuarios/usuario/usuario.component';
 import { CitaComponent } from './components/citas/cita/cita.component';
+import {LoginComponent} from './components/usuarios/login/login.component';
+import { from } from 'rxjs';
 
 
 
@@ -15,7 +17,7 @@ const routes: Routes = [
   {path: 'usuario', component: UsuarioComponent},
   {path: 'cita', component:CitaComponent},
   {path: 'citas', component: CitasComponent},
-
+  {path: 'login', component: LoginComponent},
   {path: '**', pathMatch: 'full', redirectTo: 'home'},
   
 ];
