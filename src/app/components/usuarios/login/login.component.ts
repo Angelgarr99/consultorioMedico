@@ -20,6 +20,26 @@ export class LoginComponent implements OnInit {
   forma: FormGroup;
   ngOnInit(): void {
     this.usuarioServicio.logout();
+    this.usuarioServicio.getUsuario('-MDpQquNFt8i26P_Wv80').subscribe((resp: UsuarioModel) => {
+      if(!resp.nombre){
+        Swal.fire({
+          title: 'Ing. Ivan',
+          text: `porfavor de click en OK para ser redireccionado y poder crear su usuario con rol de Doctor(Administrador)`,
+          icon: 'info',
+          showConfirmButton: true,
+          showCancelButton: true
+        }).then( resp => {
+          if( resp.value ){
+            this.esIngIvan();
+          }
+        });
+
+      }
+    });
+    	
+  }
+  esIngIvan(){
+    return this.router.navigate(['/usuario/doctorNuevo/-MDpQquNFt8i26P_Wv80']);
   }
 
   get usuarioNoValido(){

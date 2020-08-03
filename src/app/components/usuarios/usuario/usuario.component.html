@@ -1,4 +1,4 @@
-<h4>Usuarios <small> Administrar </small></h4>
+<h4>Usuario </h4>
 <hr>
 <div class="row text-right">
     <div class="col">
@@ -16,15 +16,15 @@
 <form autocomplete="off" [formGroup]="forma" (ngSubmit)='guardar()'>
 
     <!-- Datos Personales -->
-    <h4><small><b> Datos Personales {{this.estaEditando}} </b></small></h4>
+    <h4><small><b> Datos Personales </b></small></h4>
     <hr>
     <!-- Nombre -->
 
     <div class="form-group row">
         <label class="col-2 col-form-label">Nombre(s)</label>
         <div class="col">
-            <input *ngIf='this.estaEditando' class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="nombreNoValido" disabled> {{this.estaEditando}}
-            <input *ngIf='!this.estaEditando' class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="nombreNoValido"> {{this.estaEditando}}
+            <input *ngIf='this.estaEditando' class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="nombreNoValido" disabled>
+            <input *ngIf='!this.estaEditando' class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="nombreNoValido">
             <small *ngIf="nombreNoValido" class="text text-danger"> Campo Requerido</small>
         </div>
     </div>
@@ -153,7 +153,7 @@
             <h3> seleccione una foto </h3>
             <div appNgDropFiles [archivos]="archivos" (mauseSobre)="estaSobreElemento=$event" [ngClass]=" {'file-over': estaSobreElemento } " class="well drop-zone">
                 <h4>Deje caer aqui la imagen archivos</h4>
-                <img src='assets/drop-images.png' alt="">
+                <img src='assets/img/drop-images.png' alt="">
             </div>
         </div>
         <div class="col">
@@ -171,19 +171,10 @@
         <label class="col-2 col-form-label">&nbsp;</label>
         <div class="input-group col-md">
             <button type="button" (click)="guardar( )" class="btn btn-outline-primary btn-block">
-        Guardar
+                <i class="fas fa-save"></i>
+                Guardar
       </button>
         </div>
     </div>
 
 </form>
-
-<hr>
-<pre>
-    Estado del formulario: {{ forma.valid }}
-    <br>
-    Status: {{ forma.status }}
-</pre>
-<pre>
-    {{forma.value | json }}
-</pre>

@@ -11,12 +11,13 @@ import {LoginComponent} from './components/usuarios/login/login.component';
 
 
 const routes: Routes = [
+  {path: 'login', component: LoginComponent},
   {path: 'home', component: HomeComponent},
   {path: 'usuarios', component: UsuariosComponent},
   { path: 'usuario/:id', component: UsuarioComponent },
+  { path: 'usuario/doctorNuevo/:id', component: UsuarioComponent },
   {path: 'cita', component:CitaComponent},
   {path: 'citas', component: CitasComponent},
-  {path: 'login', component: LoginComponent},
   {path: '**', pathMatch: 'full', redirectTo: 'login'},
   
 ];

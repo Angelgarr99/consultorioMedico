@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ValidadoresService } from '../../../services/validadores.service';
 import { UsuarioModel } from '../../../models/usuario.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioService } from '../../../services/usuario.service';
@@ -39,15 +38,12 @@ export class UsuarioComponent implements OnInit {
   ngOnInit(): void {
     let error = false;
     let palabra ='doctor';
-    console.log(this.route.snapshot.url[1].path);
     if ( this.route.snapshot.url[1].path === 'doctorNuevo'){
       this.usuario.id = this.route.snapshot.url[2].path;
       this.esMedico = true;
       this.estaEditando = false;
     }else{
-      console.log('aquiToy');
       this.id = this.route.snapshot.paramMap.get('id');
-      console.log('this.id= ',this.id);
       this.usuarioSesion = this.usuarioService.cargarrSorage();
       if (this.id !== 'nuevo' && this.usuarioSesion ){
         this.estaEditando = true;
@@ -56,7 +52,6 @@ export class UsuarioComponent implements OnInit {
           this.usuario = resp;
           this.usuario.id = this.id;
           this.cargarDataAlFormulario(this.usuario);
-          console.log('aquiToy3');
           if (this.usuarioSesion.rol){
             palabra = this.usuarioSesion.rol;
           }
@@ -74,7 +69,6 @@ export class UsuarioComponent implements OnInit {
           }
           });
       }else if( this.id === 'nuevo'){
-        console.log('aquiToy2');
         this.estaEditando = false;
       }else{
         error = true;
@@ -89,85 +83,8 @@ export class UsuarioComponent implements OnInit {
       }
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // this.usuarioSesion = this.usuarioService.cargarrSorage();
-    // console.log('this.usuarioSesion', this.usuarioSesion);
-    // if (this.usuarioSesion === null){
-    //   Swal.fire({
-    //     title: 'Error',
-    //     text: ` No tiene permisos para estar en esta pagina`,
-    //     icon: 'error'
-    //   });
-    //   this.router.navigate(['login']);
-    // }else{
-    //   if ( this.usuarioSesion.rol === 'doctor' ){
-    //     this.esMedico = true;
-    //   }
-    // }
-    // // if (this.id !== 'nuevo'){
-    // //   this.estaEditando = true;
-    // //   if (this.esMedico && this.usuarioSesion.id === this.usuario.id ){
-    // //     this.estaEditando = false;
-    // //   }
-    // //   console.log('EstaEditando:', this.estaEditando);
-    // //   this.usuarioService.getUsuario(this.id)
-    // //   .subscribe( (resp: UsuarioModel) => {
-    // //     this.usuario = resp;
-    // //     this.usuario.id = this.id;
-    // //     this.cargarDataAlFormulario(this.usuario);
-    // //   });
-    // // }else{
-    //   if(!this.esMedico){
-    //     Swal.fire({
-    //       title: 'Error',
-    //       text: ` No tiene permisos para estar en esta pagina`,
-    //       icon: 'error'
-    //     });
-    //     this.router.navigate(['home']);
-    //   }
-
-    // }
-    // }
-    // console.log(this.estaEditando);
   
   }
-
-  // llenaCodigoPostal(valor: string ){
-  //   if (valor.length === 5){
-  //     this.usuarioService.validaCP(valor)
-  //     .subscribe( resp => {
-  //       this.cpS = resp;
-  //       console.log(this.cpS);
-  //       this.cpValido = true;
-  //       console.log(this.cpS.error);
-  //       console.log(this.cpS.response);
-  //       console.log(this.cpS.response['asentamiento']);
-  //       this.forma.value.direccion.ciudad = this.cpS.response['ciudad'];
-  //       this.forma.value.direccion.estado = this.cpS.response['estado'];
-  //     }, (error => {
-  //      this.cpS = error.error;
-  //      this.cpValido = this.cpS.error;
-  //      console.log(this.cpS);
-  //      this.cpValido = false;
-  //      console.log(this.cpS.error);
-  //     }));
-  //   }else{
-  //     this.cpValido = false;
-  //   }
-  // }
   cargarImagenes(){
     this.cargaImagenes.CargarImagenesFirebase( this.archivos );
     for (const foto of this.archivos){

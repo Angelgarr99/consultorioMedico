@@ -56,14 +56,6 @@
                 <button type="button" (click)="cancelar()" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 <button (click)="registrarCita()" class="btn btn-primary" [disabled]="forma.invalid" data-dismiss="modal">Registrar Cita</button>
                 <br>
-                <pre>
-                    Estado del formulario: {{ forma.valid }}
-                    <br>
-                    Status: {{ forma.status }}
-                </pre>
-                <pre>
-                    {{forma.value | json }}
-                </pre>
             </div>
         </div>
     </div>

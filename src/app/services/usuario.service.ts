@@ -147,6 +147,6 @@ export class UsuarioService {
     return false;
    }
    getURL(): string{
-    return 'http://localhost:4200/';
+    return 'https://angelgarr99.github.io/consultorioMedico/';
    }
 }

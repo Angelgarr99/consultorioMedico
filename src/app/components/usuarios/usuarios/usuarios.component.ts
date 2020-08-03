@@ -23,7 +23,6 @@ export class UsuariosComponent implements OnInit {
   ngOnInit(): void {
     this.usuarioSesion = this.usuarioService.cargarrSorage();
     if (this.usuarioSesion=== null){
-      console.log('hola');
       Swal.fire({
         title: 'Error',
         text: ` No tiene permisos para estar en esta pagina`,
@@ -84,14 +83,12 @@ export class UsuariosComponent implements OnInit {
   }
   AgregarDoctor(accion: string){
     this.dioClic = true;
-    console.log(accion);
     if(accion === 'agregar'){
       this.doctorNuevo.rol = 'doctor';
       const peticion: Observable<any> = this.usuarioService.crearUsuario(this.doctorNuevo);
       peticion.subscribe( resp => {
         this.doctorNuevo = resp;
         this.usuarios.push(this.doctorNuevo);
-        console.log(this.doctorNuevo);
         // tslint:disable-next-line: no-unused-expression
       });
     }else{
