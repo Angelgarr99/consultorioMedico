@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "consultorioMedico"
+    }
+  },
+  "defaultProject": "consultorioMedico",
+  "cli": {
+    "analytics": false
+  }
 }
