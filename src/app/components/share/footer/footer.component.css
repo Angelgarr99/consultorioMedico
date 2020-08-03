@@ -1,9 +1,6 @@
 h5 {
     color: rgb(255, 255, 255) !important;
     background-color: #65AAF0;
-    margin-left: 215px;
-    margin-right: 216px;
-    
 }
 
 .carousel-inner>.item {
@@ -17,7 +14,7 @@ h5 {
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    max-height: 800px;
+    max-height: 200px;
     width: auto;
 }
 
@@ -26,6 +23,6 @@ h5 {
     background-image: none;
 }
 
-.fondo{
-    background-color:#65AAF0 ;
+.fondo {
+    background-color: #65AAF0;
 }

@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'cita', component:CitaComponent},
   {path: 'citas', component: CitasComponent},
   {path: 'login', component: LoginComponent},
-  {path: '**', pathMatch: 'full', redirectTo: 'home'},
+  {path: '**', pathMatch: 'full', redirectTo: 'login'},
   
 ];
 
