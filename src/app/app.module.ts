@@ -22,6 +22,16 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+const config = {
+  apiKey: 'AIzaSyDZfN7qua0BWePwr9YqcetGi35i8_R8_yo',
+  authDomain: 'clinica-f0acc.firebaseapp.com',
+  databaseURL: 'https://clinica-f0acc.firebaseio.com',
+  projectId: 'clinica-f0acc',
+  storageBucket: 'clinica-f0acc.appspot.com',
+  messagingSenderId: '487170690603',
+  appId: '1:487170690603:web:abb58ffc585bff4a41246e',
+  measurementId: 'G-0DRM6EVXZ4'
+};
 
 @NgModule({
   declarations: [
@@ -39,7 +49,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   imports: [
     BrowserModule,
     AppRoutesModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireModule.initializeApp(config),
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
     FormsModule,
