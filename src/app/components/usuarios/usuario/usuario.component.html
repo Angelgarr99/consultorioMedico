@@ -1,25 +1,31 @@
-<h4>Registrar <small> Usuario </small></h4>
+<h4>Usuarios <small> Administrar </small></h4>
 <hr>
 <div class="row text-right">
     <div class="col">
-        <button class="btn btn-danger" [routerLink]="['/usuarios']">
+        <button *ngIf='esMedico' class="btn btn-danger" routerLink="/usuarios">
+            <i class="fas fa-arrow-left" aria-hidden="true"></i>
+            Regresar
+        </button>
+        <button *ngIf="esPaciente " class="btn btn-danger" routerLink="/home">
             <i class="fas fa-arrow-left" aria-hidden="true"></i>
             Regresar
         </button>
     </div>
 </div>
 
-<form autocomplete="off" >
+<form autocomplete="off" [formGroup]="forma" (ngSubmit)='guardar()'>
 
     <!-- Datos Personales -->
-    <h4><small><b> Datos Personales  </b></small></h4>
+    <h4><small><b> Datos Personales {{this.estaEditando}} </b></small></h4>
     <hr>
     <!-- Nombre -->
+
     <div class="form-group row">
         <label class="col-2 col-form-label">Nombre(s)</label>
         <div class="col">
-            <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre" >
-           
+            <input *ngIf='this.estaEditando' class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="nombreNoValido" disabled> {{this.estaEditando}}
+            <input *ngIf='!this.estaEditando' class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="nombreNoValido"> {{this.estaEditando}}
+            <small *ngIf="nombreNoValido" class="text text-danger"> Campo Requerido</small>
         </div>
     </div>
     <!--Apellido -->
@@ -27,11 +33,14 @@
         <label class="col-2 colform-label">Apellidos</label>
         <div class="form-row col">
             <div class="col">
-                <input class="form-control" type="text" placeholder="Primer Apellido" formControlName="apellido1" >
-                 
-            </div>
+                <input *ngIf='this.estaEditando' class="form-control" type="text" placeholder="Primer Apellido" formControlName="apellido1" [class.is-invalid]="apellido1NoValido" disabled>
+                <input *ngIf='!this.estaEditando' class="form-control" type="text" placeholder="Primer Apellido" formControlName="apellido1" [class.is-invalid]="apellido1NoValido">
+                <small *ngIf="apellido1NoValido" class="text text-danger"> Campo Requerido</small> </div>
             <div class="col">
-                <input class="form-control" type="text" placeholder="Segundo Apellido" formControlName="apellido2" >
+                <input *ngIf='this.estaEditando' class="form-control" type="text" placeholder="segundo Apellido" formControlName="apellido2" [class.is-invalid]="apellido2NoValido" disabled>
+                <input *ngIf='!this.estaEditando' class="form-control" type="text" placeholder="segundo Apellido" formControlName="apellido2" [class.is-invalid]="apellido2NoValido">
+
+                <small *ngIf="apellido2NoValido" class="text text-danger"> Campo Requerido</small>
             </div>
         </div>
     </div>
@@ -39,13 +48,16 @@
     <div class="form-group row">
         <label class="col-2 col-form-label">CURP</label>
         <div class="col">
-            <input class="form-control" type="text" placeholder="C.U.R.P." formControlName="curp" >
+            <input *ngIf='this.estaEditando' class="form-control" type="text" placeholder="C.U.R.P." formControlName="curp" [class.is-invalid]="curpNoValida" disabled>
+            <input *ngIf='!this.estaEditando' class="form-control" type="text" placeholder="C.U.R.P." formControlName="curp" [class.is-invalid]="curpNoValida">
+            <small *ngIf="curpNoValida" class="text text-danger"> Campo necesario, ingrese unicamente texto en minisculas </small>
         </div>
     </div>
     <!-- CP -->
     <div class="form-group row">
         <label class="col-2 col-form-label">Código Postal</label>
         <div class="col">
+            <input class="form-control" type="text" placeholder="Código Postal" formControlName="cp" [class.is-invalid]="cpNoValido">
         </div>
     </div>
     <!-- Estado y Ciudad -->
@@ -53,25 +65,27 @@
         <label class="col-2 colform-label">Domicilio</label>
         <div class="form-row col">
             <div class="col">
-                <input class="form-control" type="text" placeholder="Estado" formControlName="estado" >
+                <input class="form-control" type="text" placeholder="Estado" formControlName="estado" [class.is-invalid]="estadoNoValido">
             </div>
             <div class="col">
-                <input class="form-control" type="text" placeholder="Ciudad" formControlName="ciudad" >
+                <input class="form-control" type="text" placeholder="Ciudad" formControlName="ciudad" [class.is-invalid]="ciudadNoValido">
             </div>
         </div>
+
     </div>
     <!-- Colonia, Calle y numero -->
     <div class="form-group row" formGroupName="direccion">
         <label class="col-2 colform-label"></label>
         <div class="form-row col">
+
             <div class="col">
-                <input class="form-control" type="text" placeholder="Colonia/Barrio" formControlName="colonia">
+                <input class="form-control" type="text" placeholder="Colonia/Barrio" formControlName="colonia" [class.is-invalid]="coloniaNoValido">
             </div>
             <div class="col">
-                <input class="form-control" type="text" placeholder="Calle" formControlName="calle" >
+                <input class="form-control" type="text" placeholder="Calle" formControlName="calle" [class.is-invalid]="calleNoValido">
             </div>
             <div class="col">
-                <input class="form-control" type="text" placeholder="Numero" formControlName="numero" >
+                <input class="form-control" type="text" placeholder="Numero" formControlName="numero" [class.is-invalid]="numeroNoValido">
             </div>
         </div>
     </div>
@@ -82,14 +96,16 @@
     <div class="form-group row">
         <label class="col-2 col-form-label">correo Electronico</label>
         <div class="col">
-            <input class="form-control" type="text" placeholder="Ej. example@medicam.com" formControlName="correo">
+            <input class="form-control" type="text" placeholder="Ej. example@medicam.com" formControlName="correo" [class.is-invalid]="correoNoValido">
+            <small *ngIf="correoNoValido" class="text text-danger"> Campo necesario, ingrese unicamente texto en minisculas </small>
         </div>
     </div>
     <!-- Telefono  -->
     <div class="form-group row">
         <label class="col-2 col-form-label">Telefono</label>
         <div class="col">
-            <input class="form-control" type="text" placeholder="Ej. 555-555-55-55" formControlName="telefono">
+            <input class="form-control" type="text" placeholder="Ej. 555-555-55-55" formControlName="telefono" [class.is-invalid]="telefonoNoValido">
+            <small *ngIf="telefonoNoValido" class="text text-danger"> Campo necesario </small>
         </div>
     </div>
     <h4><small><b> Usuario</b></small></h4>
@@ -98,7 +114,8 @@
     <div class="form-group row">
         <label class="col-2 col-form-label">Usuario</label>
         <div class="col">
-            <input class="form-control" type="text" placeholder="Nombre de usuario" formControlName="usuario">
+            <input class="form-control" type="text" placeholder="Nombre de usuario" formControlName="usuario" [class.is-invalid]="usuarioNoValido">
+            <small *ngIf="usuarioNoValido" class="text text-danger"> Ese nombre de usuario ya esta en uso</small>
         </div>
     </div>
     <!-- Contraseñas -->
@@ -106,37 +123,54 @@
         <label class="col-2 colform-label">Contraseña</label>
         <div class="form-row col">
             <div class="col">
-                <input class="form-control" type="password" placeholder="Escriba contraseña" formControlName="pass1" >
-            </div>
+                <input class="form-control" type="password" placeholder="Escriba contraseña" formControlName="pass1" [class.is-invalid]="pass1NoValido">
+                <small *ngIf="pass1NoValido" class="text text-danger"> Campo Requerido</small> </div>
             <div class="col">
-                <input class="form-control" type="password" placeholder="Repita contraseña" formControlName="pass2" >
+                <input class="form-control" type="password" placeholder="Repita contraseña" formControlName="pass2" [class.is-invalid]="pass2NoValido">
+                <small *ngIf="pass2NoValido" class="text text-danger"> Las contrasenñas no coinciden</small>
             </div>
         </div>
     </div>
 
     <!-- ¿es doctor? -->
-    <div class="form-group row">
-        <label class="col-2 col-form-label">&nbsp;</label>
-        <div class="input-group col-md">
-            <button class="btn btn-outline-success btn-block" (click)=" medico = !medico" type="button"> ¿Es usted medico? </button>
-        </div>
-    </div>
-    <div class="form-group row" >
+    <div class="form-group row" *ngIf="esMedico">
         <label class="col-2 col-form-label">Cedula Profesional</label>
         <div class="col">
-            <input class="form-control" type="text" placeholder="Ej. 000000000" formControlName="cedula">
-           
+            <input class="form-control" type="text" placeholder="Ej. 000000000" formControlName="cedula" [class.is-invalid]="cedulaNoValido">
+            <small *ngIf="cedulaNoValido" class="text text-danger"> Campo necesario </small>
         </div>
     </div>
-    <div class="item">
-        <input #inputFile class="hidden" type="file"   accept="image/*">
-        <button mat-raised-button class="btn btn-primary" type="button" >Upload</button>
+    <div class="form-group row" *ngIf="esMedico">
+        <label class="col-2 col-form-label">Especialidad</label>
+        <div class="col">
+            <input class="form-control" type="text" placeholder="Ej. Pediatria/ Cirugia General /Medicina General" formControlName="especialidad" [class.is-invalid]="especialidadNoValido">
+            <small *ngIf="especialidadNoValido" class="text text-danger"> Campo necesario </small>
+        </div>
     </div>
+
+    <div class="row" *ngIf="esMedico">
+        <div class="col" *ngIf="archivos.length === 0  && !usuario.foto">
+            <h3> seleccione una foto </h3>
+            <div appNgDropFiles [archivos]="archivos" (mauseSobre)="estaSobreElemento=$event" [ngClass]=" {'file-over': estaSobreElemento } " class="well drop-zone">
+                <h4>Deje caer aqui la imagen archivos</h4>
+                <img src='assets/drop-images.png' alt="">
+            </div>
+        </div>
+        <div class="col">
+            <img *ngIf="usuario.foto" [src]='usuario.foto' alt="de click en cargar imgaen" class="img-thumbnail">
+        </div>
+    </div>
+    <div class="row" *ngIf="esMedico">
+        <button *ngIf="!usuario.foto" class="btn btn-success" type="button" [disabled]='archivos.length===0' (click)='cargarImagenes()'>Cargar Imagen </button>
+        <button *ngIf="archivos.length === 1 || usuario.foto" class="btn btn-danger" (click)="limpiarArchivos()">Cambiar foto </button>
+    </div>
+
+
     <hr>
     <div class="form-group row">
         <label class="col-2 col-form-label">&nbsp;</label>
         <div class="input-group col-md">
-            <button type="button"  class="btn btn-outline-primary btn-block">
+            <button type="button" (click)="guardar( )" class="btn btn-outline-primary btn-block">
         Guardar
       </button>
         </div>
@@ -144,3 +178,12 @@
 
 </form>
 
+<hr>
+<pre>
+    Estado del formulario: {{ forma.valid }}
+    <br>
+    Status: {{ forma.status }}
+</pre>
+<pre>
+    {{forma.value | json }}
+</pre>
