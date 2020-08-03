@@ -1,27 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { FileItem } from '../../../models/fileItem.model';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidadoresService } from '../../../services/validadores.service';
 import { UsuarioModel } from '../../../models/usuario.model';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioService } from '../../../services/usuario.service';
-import { CargaImagenesService } from '../../../services/carga-imagenes.service';
 import Swal from 'sweetalert2';
+import { Observable } from 'rxjs';
+import { CargaImagenesService } from '../../../services/carga-imagenes.service';
+import { FileItem } from '../../../models/fileItem.model';
+
 
 @Component({
   selector: 'app-usuario',
   templateUrl: './usuario.component.html'
 })
 export class UsuarioComponent implements OnInit {
-  medico = false;
-  constructor(private router: Router,
-              private fb: FormBuilder,
-              private usuarioService: UsuarioService,
-              private route: ActivatedRoute,
-              public cargaImagenes: CargaImagenesService
-    ) {
-      this.crearFormulario();
-     }
   uploadProgress: Observable<number>;
   uploadURL: Observable<string>;
   estaSobreElemento = false;
@@ -34,9 +27,42 @@ export class UsuarioComponent implements OnInit {
   esMedico = false;
   esPaciente = false;
   estaEditando = false;
+  constructor( private router: Router,
+               private fb: FormBuilder,
+               private usuarioService: UsuarioService,
+               private route: ActivatedRoute,
+               public cargaImagenes: CargaImagenesService ) {
+    this.crearFormulario();
+    this.crearListeners();
+   }
+
   ngOnInit(): void {
-    
+  
   }
+
+  // llenaCodigoPostal(valor: string ){
+  //   if (valor.length === 5){
+  //     this.usuarioService.validaCP(valor)
+  //     .subscribe( resp => {
+  //       this.cpS = resp;
+  //       console.log(this.cpS);
+  //       this.cpValido = true;
+  //       console.log(this.cpS.error);
+  //       console.log(this.cpS.response);
+  //       console.log(this.cpS.response['asentamiento']);
+  //       this.forma.value.direccion.ciudad = this.cpS.response['ciudad'];
+  //       this.forma.value.direccion.estado = this.cpS.response['estado'];
+  //     }, (error => {
+  //      this.cpS = error.error;
+  //      this.cpValido = this.cpS.error;
+  //      console.log(this.cpS);
+  //      this.cpValido = false;
+  //      console.log(this.cpS.error);
+  //     }));
+  //   }else{
+  //     this.cpValido = false;
+  //   }
+  // }
   cargarImagenes(){
     this.cargaImagenes.CargarImagenesFirebase( this.archivos );
     for (const foto of this.archivos){
@@ -48,6 +74,10 @@ export class UsuarioComponent implements OnInit {
     this.usuario.foto= null;
     this.archivos = [];
   }
+
+  // { Seccion
+
+// } seccion
   crearFormulario(){
       this.forma = this.fb.group({
       nombre      : ['', [Validators.required, Validators.minLength(5)]],
@@ -74,6 +104,12 @@ export class UsuarioComponent implements OnInit {
         numero    : ['', Validators.required],
       })
       });
+  }
+  crearListeners(){
+  }
+
+  doctor(){
+    return this.esMedico;
   }
 
 
@@ -267,5 +303,5 @@ export class UsuarioComponent implements OnInit {
     const pass1 = this.forma.get('contrasena.pass1').value;
     const pass2 = this.forma.get('contrasena.pass2').value;
     return (pass1 === pass2) ? false : true ;
-  }  
+  }
 }
