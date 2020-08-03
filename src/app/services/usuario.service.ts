@@ -10,14 +10,14 @@ export class UsuarioService {
   actualizarUsuario(usuario: UsuarioModel){
   console.log('actualizando');
   console.log(usuario);
-  //prueba del commit
-  
   return null;
 }
 
 crearUsuario(usuario: UsuarioModel){
   console.log('Entro al crear Usuario');
   console.log(usuario);
+    //prueba del commit2
+
   return null;
 }
 }
