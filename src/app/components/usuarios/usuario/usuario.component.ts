@@ -37,6 +37,111 @@ export class UsuarioComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    let error = false;
+    let palabra ='doctor';
+    console.log(this.route.snapshot.url[1].path);
+    if ( this.route.snapshot.url[1].path === 'doctorNuevo'){
+      this.usuario.id = this.route.snapshot.url[2].path;
+      this.esMedico = true;
+      this.estaEditando = false;
+    }else{
+      console.log('aquiToy');
+      this.id = this.route.snapshot.paramMap.get('id');
+      console.log('this.id= ',this.id);
+      this.usuarioSesion = this.usuarioService.cargarrSorage();
+      if (this.id !== 'nuevo' && this.usuarioSesion ){
+        this.estaEditando = true;
+        this.usuarioService.getUsuario(this.id)
+        .subscribe( (resp: UsuarioModel) => {
+          this.usuario = resp;
+          this.usuario.id = this.id;
+          this.cargarDataAlFormulario(this.usuario);
+          console.log('aquiToy3');
+          if (this.usuarioSesion.rol){
+            palabra = this.usuarioSesion.rol;
+          }
+          if( palabra === 'doctor' ){
+            if (this.usuarioSesion.id === this.usuario.id ){
+              this.estaEditando = true;
+            }else{
+              this.estaEditando = false;
+            }
+          }else if(palabra === 'paciente' && this.usuarioSesion.id === this.usuario.id ){
+              this.esPaciente= true;
+              this.estaEditando = true;
+          }else{
+            error = true;
+          }
+          });
+      }else if( this.id === 'nuevo'){
+        console.log('aquiToy2');
+        this.estaEditando = false;
+      }else{
+        error = true;
+      }
+      if(error){
+        Swal.fire({
+          title: 'Error',
+          text: ` No tiene permisos para estar en esta pagina`,
+          icon: 'error'
+        });
+        this.router.navigate(['home']);
+      }
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // this.usuarioSesion = this.usuarioService.cargarrSorage();
+    // console.log('this.usuarioSesion', this.usuarioSesion);
+    // if (this.usuarioSesion === null){
+    //   Swal.fire({
+    //     title: 'Error',
+    //     text: ` No tiene permisos para estar en esta pagina`,
+    //     icon: 'error'
+    //   });
+    //   this.router.navigate(['login']);
+    // }else{
+    //   if ( this.usuarioSesion.rol === 'doctor' ){
+    //     this.esMedico = true;
+    //   }
+    // }
+    // // if (this.id !== 'nuevo'){
+    // //   this.estaEditando = true;
+    // //   if (this.esMedico && this.usuarioSesion.id === this.usuario.id ){
+    // //     this.estaEditando = false;
+    // //   }
+    // //   console.log('EstaEditando:', this.estaEditando);
+    // //   this.usuarioService.getUsuario(this.id)
+    // //   .subscribe( (resp: UsuarioModel) => {
+    // //     this.usuario = resp;
+    // //     this.usuario.id = this.id;
+    // //     this.cargarDataAlFormulario(this.usuario);
+    // //   });
+    // // }else{
+    //   if(!this.esMedico){
+    //     Swal.fire({
+    //       title: 'Error',
+    //       text: ` No tiene permisos para estar en esta pagina`,
+    //       icon: 'error'
+    //     });
+    //     this.router.navigate(['home']);
+    //   }
+
+    // }
+    // }
+    // console.log(this.estaEditando);
   
   }
 

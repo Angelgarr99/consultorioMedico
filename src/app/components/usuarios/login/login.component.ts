@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuarioService } from '../../../services/usuario.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
+import {Router} from '@angular/router';
+import { Observable } from 'rxjs';
+import { UsuarioModel } from '../../../models/usuario.model';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +13,84 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private router: Router, private usuarioServicio: UsuarioService, private fb: FormBuilder) { 
+    this.crearFormulario();
   }
+  usuarios: UsuarioModel[] = [];
+  forma: FormGroup;
+  ngOnInit(): void {
+    this.usuarioServicio.logout();
+  }
+
+  get usuarioNoValido(){
+    return this.forma.get('usuario').invalid && this.forma.get('usuario').touched;
+  }
+  get contrasenaNoValido(){
+    return this.forma.get('contrasena').invalid && this.forma.get('contrasena').touched;
+  }
+  crearFormulario(){
+    this.forma = this.fb.group({
+      usuario        : ['', [Validators.required]],
+      contrasena     : ['', Validators.required ],
+    });
+  }
+
+
+  login(){
+    Swal.fire({
+      title: 'Espere',
+      text: 'Validando Usuario',
+      icon: 'info',
+      allowOutsideClick: false
+    });
+    Swal.showLoading();
+
+    if (this.forma.invalid){
+      return Object.values(this.forma.controls).forEach(control => {
+        if (control instanceof FormGroup){
+          Object.values(control.controls).forEach( control2 => control2.markAllAsTouched());
+        }else{
+          control.markAllAsTouched();
+          Swal.fire({
+            title: 'Error',
+            text: ` faltan campos necesarios`,
+            icon: 'error'
+          });
+        }
+      });
+      // alert
+    }
+
+    const aux = this.forma.value;
+    const usuario = aux.usuario;
+    const pass = aux.contrasena;
+
+    this.usuarioServicio.login(usuario, pass).subscribe (resp => {
+      const _us: UsuarioModel[] = resp;
+      if ( resp !== null){
+        this.usuarioServicio.guardarSesion(_us);
+        Swal.fire({
+          icon: 'success',
+          title: `Bienvenido ${_us[0].nombre } ` ,
+          showConfirmButton: false,
+          timer: 1000
+        });
+        setTimeout (() => {
+          location.reload();
+        }, 100 );
+        return this.router.navigate(['/home']);
+
+      }else{
+        Swal.fire({
+          title: 'Error',
+          text: ` Usuario y/o contraseña incorrecta`,
+          icon: 'error'
+        });
+
+      }
+     });
+
+  }
+
 
 }

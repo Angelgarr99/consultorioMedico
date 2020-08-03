@@ -1,20 +1,20 @@
 <div class="text-center">
-    <form class="form-signin" autocomplete="off" >
+    <form class="form-signin" autocomplete="off" [formGroup]="forma" (ngSubmit)='login()'>
         <img class="mb-4" src="https://www.networkpositiva.com/themes/refineriaweb/assets/image/avatar.png" alt="" width="72" height="72">
         <hr>
         <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesión</h1>
         <hr><label for="inputEmail" class="sr-only">Nombre de usuario</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Nombre de usuario" formControlName="usuario" >
+        <input type="email" id="inputEmail" class="form-control" placeholder="Nombre de usuario" formControlName="usuario" [class.is-invalid]="usuarioNoValido">
 
         <label for="inputPassword" class="sr-only">Contraseña</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" formControlName="contrasena">
+        <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" formControlName="contrasena" [class.is-invalid]="contrasenaNoValido">
         <div class="checkbox mb-3">
             <!-- <label>
         <input type="checkbox" value="remember-me"> Recordar Usuario
       </label> -->
         </div>
         <hr>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" [routerLink]="['/home']">Iniciar sesión</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar sesión</button>
         <hr>
 
     </form>

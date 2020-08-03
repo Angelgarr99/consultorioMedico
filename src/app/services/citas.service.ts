@@ -70,7 +70,6 @@ export class CitasService {
     });
     return usuario;
   }
-
   actualizarCita(cita: CitaModel){
     const citaTemp = {
       ...cita
@@ -109,7 +108,6 @@ export class CitasService {
     });
     return citas;
   }
-  
   private crearArregloMisCitasDoctor(citaObj: object){
     const doctor: UsuarioModel = this.usuarioService.cargarrSorage();
     const citas: CitaModel[] = [];

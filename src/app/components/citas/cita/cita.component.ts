@@ -28,9 +28,24 @@ export class CitaComponent implements OnInit {
 
   constructor( private citasService: CitasService, private fb: FormBuilder, private validadores: ValidadoresService,
                private usuarioServicio: UsuarioService, private router: Router){}
-    ngOnInit(): void {
-    
-  }
+               ngOnInit(): void {
+                this.usuarioSesion = this.usuarioServicio.cargarrSorage();
+                if (this.usuarioSesion === null){
+                  Swal.fire({
+                    title: 'Error',
+                    text: ` No tiene permisos para estar en esta pagina`,
+                    icon: 'error'
+                  });
+                  this.router.navigate(['login']);
+                }
+                this.cargando = true;
+                this.citasService.getDoctores()
+                .subscribe( resp => {
+                  this.doctores = resp;
+                  this.cargando = false;
+                });
+                this.crearFormulario();
+              }
 
   get fechaNoValido(){
     return this.forma.get('fecha').invalid && this.forma.get('fecha').touched;
