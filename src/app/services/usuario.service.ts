@@ -20,4 +20,5 @@ crearUsuario(usuario: UsuarioModel){
 
   return null;
 }
+cargarrSorage(){ return null}
 }
