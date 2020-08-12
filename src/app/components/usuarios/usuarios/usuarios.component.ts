@@ -16,13 +16,13 @@ export class UsuariosComponent implements OnInit {
   doctorNuevo = new UsuarioModel();
   dioClic = false;
   usuarioSesion: UsuarioModel;
-  pathUrl = this.usuarioService.getURL();
+  pathUrl = (window.location.origin) + '/';
   constructor( private route: ActivatedRoute, private usuarioService: UsuarioService, private router: Router) { }
 
 
   ngOnInit(): void {
     this.usuarioSesion = this.usuarioService.cargarrSorage();
-    if (this.usuarioSesion=== null){
+    if (this.usuarioSesion === null){
       Swal.fire({
         title: 'Error',
         text: ` No tiene permisos para estar en esta pagina`,

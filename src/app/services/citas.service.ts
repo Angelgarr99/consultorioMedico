@@ -64,7 +64,7 @@ export class CitasService {
     Object.keys(usuarioObj).forEach( key => {
       const user: UsuarioModel = usuarioObj[key];
       user.id = key;
-      if (user.rol === 'doctor'){
+      if (user.rol === 'doctor' && user.foto ){
         usuario.push(user);
       }
     });

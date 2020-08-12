@@ -50,6 +50,12 @@ export class UsuarioService {
     };
     return this.http.put(`${this.url}/usuarios/${usuario.id}.json`, usuarioTemp);
   }
+  getNombreUsuarios(){
+    return this.http.get(`${this.url}/usuarios.json`)
+    .pipe(
+      map(resp =>  this.crearArregloNombres(resp))
+    );
+  }
 
   getUsuario( id: string){
     return this.http.get(`${this.url}/usuarios/${id}.json`);
@@ -65,6 +71,19 @@ export class UsuarioService {
   }
 
 
+
+  private crearArregloNombres(usuarioObj: object){
+    const nombres: string[] = [];
+    if (usuarioObj === null) {
+       return [];
+    }
+    Object.keys(usuarioObj).forEach( key => {
+      const user: UsuarioModel = usuarioObj[key];
+      user.id = key;
+      nombres.push(user.nombre);
+    });
+    return nombres;
+  }
 
   private crearArreglo(usuarioObj: object){
     const usuario: UsuarioModel[] = [];

@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
 import { CargaImagenesService } from '../../../services/carga-imagenes.service';
 import { FileItem } from '../../../models/fileItem.model';
-
+import { ValidadoresService } from '../../../services/validadores.service';
 
 @Component({
   selector: 'app-usuario',
@@ -30,15 +30,16 @@ export class UsuarioComponent implements OnInit {
                private fb: FormBuilder,
                private usuarioService: UsuarioService,
                private route: ActivatedRoute,
-               public cargaImagenes: CargaImagenesService ) {
+               public cargaImagenes: CargaImagenesService,
+               private validadores: ValidadoresService) {
     this.crearFormulario();
     this.crearListeners();
    }
 
   ngOnInit(): void {
     let error = false;
-    let palabra ='doctor';
-    if ( this.route.snapshot.url[1].path === 'doctorNuevo'){
+    let palabra = 'doctor';
+    if ( this.route.snapshot.url[1].path === 'doctorNuevo' ){
       this.usuario.id = this.route.snapshot.url[2].path;
       this.esMedico = true;
       this.estaEditando = false;
@@ -47,6 +48,9 @@ export class UsuarioComponent implements OnInit {
       this.usuarioSesion = this.usuarioService.cargarrSorage();
       if (this.id !== 'nuevo' && this.usuarioSesion ){
         this.estaEditando = true;
+        if(this.usuarioSesion.rol === 'doctor' ){
+          this.esMedico = true;
+        }
         this.usuarioService.getUsuario(this.id)
         .subscribe( (resp: UsuarioModel) => {
           this.usuario = resp;
@@ -107,7 +111,10 @@ export class UsuarioComponent implements OnInit {
         apellido1 : ['', [Validators.required, Validators.minLength(2), ]],
         apellido2 : ['', [Validators.required, Validators.minLength(2), ]]
       }),
-      curp        : ['', [Validators.required, Validators.minLength(18), Validators.maxLength(18)]],
+      curp        : ['', [Validators.required,
+       Validators.minLength(18), Validators.maxLength(18),
+      
+      ], [this.validadores.curpValida]],
       usuario     : ['', Validators.required ],
       contrasena:  this.fb.group({
         pass1     : ['', [Validators.required]],
@@ -256,18 +263,38 @@ export class UsuarioComponent implements OnInit {
     if ( this.usuario.id ){
       peticion = this.usuarioService.actualizarUsuario(this.usuario);
       txtAux = 'Actualizo';
+      peticion.subscribe( resp => {
+        resp = this.usuario;
+        Swal.fire({
+          title: this.usuario.nombre,
+          text: `Se ${txtAux} Correctamente`,
+          icon: 'success'
+        });
+      });
     }else{
       peticion = this.usuarioService.crearUsuario(this.usuario);
       txtAux = 'Creo';
-    }
-    peticion.subscribe( resp => {
-      resp = this.usuario;
-      Swal.fire({
-        title: this.usuario.nombre,
-        text: `Se ${txtAux} Correctamente`,
-        icon: 'success'
+      peticion.subscribe( resp => {
+        resp = this.usuario;
+        this.usuarioService.login(this.usuario.usuario, this.usuario.contrasena).subscribe (resp2 => {
+          const _us: UsuarioModel[] = resp2;
+          if ( resp2 !== null){
+            this.usuarioService.guardarSesion(_us);
+            Swal.fire({
+              icon: 'success',
+              title: `Bienvenido ${_us[0].nombre } ` ,
+              showConfirmButton: false,
+              timer: 1000
+            });
+            setTimeout (() => {
+              location.reload();
+            }, 100 );
+            return this.router.navigate(['/home']);
+          }
+        });
       });
-    });
+    }
+
 
   }
   get nombreNoValido(){

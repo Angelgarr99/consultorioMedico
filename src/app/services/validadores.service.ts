@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, concat } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { UsuarioService } from './usuario.service';
 import { UsuarioModel } from '../models/usuario.model';
@@ -34,49 +34,104 @@ export class ValidadoresService {
     });
 
   }
-// existeUsuario2(control: FormControl): ErrorValidate {
-//   let contador = 0;
-//   this.usuarioService.getusuarios()
-//   .subscribe( resp => {
-//     this.usuarios = resp;
-//   });
 
-//   for (const usuario of this.usuarios) {
-//     if (control.value?.toLowerCase () === usuario.usuario ){
-//       contador++;
-//     }
-//   }
-//   if (contador > 0 ){
-//     return {
-//       noHerrera: true
-//     };
-//   }else{
-//     return null;
-//   }
-// }
+  curpValida(control: FormControl): Promise<ErrorValidate> | Observable<ErrorValidate> {
+    let band = true;
+    if( !control.value){
+      return Promise.resolve(null);
+    }
+    const val: string = control.value;
+    if( val.length !== 18 ){
+      return Promise.resolve(null);
+    }
+    let anioAux: string;
+    const validaTexto = RegExp ('^[A-Z]+$', 'i');
+    const validaConsonantes = RegExp ('^[B-DF-HJ-NP-TV-Z]+$', 'i');
 
-// { CodigoPostalExiste(control: FormControl): Promise<ErrorValidate> | Observable<ErrorValidate> {
-// if(!control.value){
-//   return Promise.resolve(null);
-// }
-// const val: string = control.value;
-// if( val.length !== 5 ){
-//   return Promise.resolve(null);
-// }
-// return new Promise( (resolve, reject) => {
-//   setTimeout(() => {
-//     let problem: Boolean = false;
-//     this.usuarioService.validaCP(val).subscribe(resp =>{
-//        problem = resp.error;
-//       });
-//     if ( !problem ){
-//         resolve({existe: true });
-//     }else{
-//       resolve(null);
-//     }
-//    }, 50);
-// });}
-// }
+    if (!(validaTexto.test(val.slice(0,4)) && validaTexto.test(val.slice(10,16))) ){
+      band = false;
+    }else{
+      const anio: number = +(val.slice(4, 6));
+      let dmax: number;
+      if (anio > 21){
+        anioAux = '19' + anio;
+      }else if(anio >= 0 && anio <= 9){
+        anioAux = '200' + anio;
+      }else{
+        anioAux = '20' + anio;
+      }
+      const anioVF: number = +(anioAux);
+      if (!anioVF){
+        band = false;
+      }
+      const mes: number = +(val.slice(6, 8));
+      const dia = +(val.slice(8, 10));  
+      switch (mes) {
+        case 1: dmax = 31; break;
+        case 2:
+          if (anioVF % 4 === 0){
+            dmax = 29;
+          }else{
+             dmax = 28;
+          }
+          break;
+        case 3: dmax = 31; break;
+        case 4: dmax = 30; break;
+        case 5: dmax = 31; break;
+        case 6: dmax = 30; break;
+        case 7: dmax = 31; break;
+        case 8: dmax = 31; break;
+        case 9: dmax = 30; break;
+        case 10: dmax = 31; break;
+        case 11: dmax = 30; break;
+        case 12: dmax = 31; break;
+        default: band = false; break;
+      }
+      if (!((dia >= 1) && (dia <= dmax) && (mes >= 1) && (mes <= 12))) {
+        band = false;
+      }
+      if ( !(val.slice(10, 11) === 'H' || val.slice(10, 11) === 'M')){
+        band = false;
+      }
+      if ( !(val.slice(10, 11) === 'H' || val.slice(10, 11) === 'M')){
+        band = false;
+      }
+      const listaEstados: string[] = ['AS', 'BC', 'BS', 'CC', 'CL', 'CM', 'CS', 'CH', 'DF', 'DG', 'GT', 'GR', 'HG', 'JC', 'MC', 'MN', 'MS', 'NT', 'NL', 'OC', 'PL', 'QT', 'QR', 'SP', 'SL', 'SR', 'TC', 'TS', 'TL', 'VZ', 'YN', 'ZS'];
+      if (!listaEstados.includes(val.slice(11, 13))){
+        band = false;
+      }
+      if( !validaConsonantes.test(val.slice(12, 16))){
+          band = false;
+      }
+      if (anioVF >= 2000 ){
+        if (!validaTexto.test(val.slice(16, 17))){
+          band = false;
+        }
+      }else{
+        const mayor2000: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        if (!mayor2000.includes(val.slice(16, 17))){
+          band = false;
+        }
+      }
+      // GAAA990729HPLRGN24
+      const ultimoDigito: number = + (val.slice(17, 18));
+      if(!ultimoDigito){
+        band = false;
+      }
+
+
+  }
+    return new Promise( (resolve, reject) => {   setTimeout(() => {
+      if ( band === false ){
+        resolve({existe: true });
+        }else{
+          resolve(null);
+       }}, 50);
+    });
+
+  }
+
+
   horaValida(control: FormControl): Promise<ErrorValidate> | Observable<ErrorValidate> {
     if( !control.value){
       return Promise.resolve(null);
