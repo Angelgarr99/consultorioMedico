@@ -2,11 +2,7 @@
 <hr>
 <div class="row text-right">
     <div class="col">
-        <button *ngIf='esMedico' class="btn btn-danger" routerLink="/usuarios">
-            <i class="fas fa-arrow-left" aria-hidden="true"></i>
-            Regresar
-        </button>
-        <button *ngIf="esPaciente " class="btn btn-danger" routerLink="/home">
+        <button class="btn btn-danger" type="button" (click)="regresar()">
             <i class="fas fa-arrow-left" aria-hidden="true"></i>
             Regresar
         </button>
@@ -25,7 +21,7 @@
         <div class="col">
             <input *ngIf='this.estaEditando' class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="nombreNoValido" disabled>
             <input *ngIf='!this.estaEditando' class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="nombreNoValido">
-            <small *ngIf="nombreNoValido" class="text text-danger"> Campo Requerido</small>
+            <small *ngIf="nombreNoValido" class="text text-danger"> Campo Requerido, Ingrese unicamente letras</small>
         </div>
     </div>
     <!--Apellido -->
@@ -35,12 +31,12 @@
             <div class="col">
                 <input *ngIf='this.estaEditando' class="form-control" type="text" placeholder="Primer Apellido" formControlName="apellido1" [class.is-invalid]="apellido1NoValido" disabled>
                 <input *ngIf='!this.estaEditando' class="form-control" type="text" placeholder="Primer Apellido" formControlName="apellido1" [class.is-invalid]="apellido1NoValido">
-                <small *ngIf="apellido1NoValido" class="text text-danger"> Campo Requerido</small> </div>
+                <small *ngIf="apellido1NoValido" class="text text-danger"> Campo Requerido, Ingrese unicamente letras</small> </div>
             <div class="col">
                 <input *ngIf='this.estaEditando' class="form-control" type="text" placeholder="segundo Apellido" formControlName="apellido2" [class.is-invalid]="apellido2NoValido" disabled>
                 <input *ngIf='!this.estaEditando' class="form-control" type="text" placeholder="segundo Apellido" formControlName="apellido2" [class.is-invalid]="apellido2NoValido">
 
-                <small *ngIf="apellido2NoValido" class="text text-danger"> Campo Requerido</small>
+                <small *ngIf="apellido2NoValido" class="text text-danger"> Campo Requerido, Ingrese unicamente letras</small>
             </div>
         </div>
     </div>
@@ -50,7 +46,7 @@
         <div class="col">
             <input *ngIf='this.estaEditando' class="form-control" type="text" placeholder="C.U.R.P." formControlName="curp" [class.is-invalid]="curpNoValida" disabled>
             <input *ngIf='!this.estaEditando' class="form-control" type="text" placeholder="C.U.R.P." formControlName="curp" [class.is-invalid]="curpNoValida">
-            <small *ngIf="curpNoValida" class="text text-danger"> Campo necesario, ingrese unicamente texto en minisculas </small>
+            <small *ngIf="curpNoValida" class="text text-danger"> Campo requerido, puede consultar su CURP <a href="https://www.gob.mx/curp/">aqui</a> </small>
         </div>
     </div>
     <!-- CP -->
@@ -58,6 +54,7 @@
         <label class="col-2 col-form-label">Código Postal</label>
         <div class="col">
             <input class="form-control" type="text" placeholder="Código Postal" formControlName="cp" [class.is-invalid]="cpNoValido">
+            <small *ngIf="cpNoValido" class="text text-danger"> codigo Postal no valido, verifique la longitud del texto </small>
         </div>
     </div>
     <!-- Estado y Ciudad -->
@@ -66,9 +63,11 @@
         <div class="form-row col">
             <div class="col">
                 <input class="form-control" type="text" placeholder="Estado" formControlName="estado" [class.is-invalid]="estadoNoValido">
+                <small *ngIf="estadoNoValido" class="text text-danger"> Campo Requerido, ingrese unicamente letras</small>
             </div>
             <div class="col">
                 <input class="form-control" type="text" placeholder="Ciudad" formControlName="ciudad" [class.is-invalid]="ciudadNoValido">
+                <small *ngIf="ciudadNoValido" class="text text-danger"> Campo Requerido, ingrese unicamente letras</small>
             </div>
         </div>
 
@@ -80,14 +79,63 @@
 
             <div class="col">
                 <input class="form-control" type="text" placeholder="Colonia/Barrio" formControlName="colonia" [class.is-invalid]="coloniaNoValido">
+                <small *ngIf="coloniaNoValido" class="text text-danger"> Campo Requerido, ingrese unicamente letras</small>
             </div>
             <div class="col">
                 <input class="form-control" type="text" placeholder="Calle" formControlName="calle" [class.is-invalid]="calleNoValido">
+                <small *ngIf="calleNoValido" class="text text-danger"> Campo Requerido</small>
             </div>
             <div class="col">
                 <input class="form-control" type="text" placeholder="Numero" formControlName="numero" [class.is-invalid]="numeroNoValido">
+                <small *ngIf="numeroNoValido" class="text text-danger"> Campo Requerido</small>
             </div>
         </div>
+    </div>
+    <!-- ¿es doctor? -->
+    <div class="form-group row" *ngIf="esMedico">
+        <label class="col-2 col-form-label">Cedula Profesional</label>
+        <div class="col">
+            <input class="form-control" type="text" placeholder="Ej. 000000000" formControlName="cedula" [class.is-invalid]="cedulaNoValido">
+            <small *ngIf="cedulaNoValido" class="text text-danger"> Campo Requerido, ingrese unicamente numeros </small>
+        </div>
+    </div>
+    <div class="form-group row" *ngIf="esMedico">
+        <label class="col-2 col-form-label">Especialidad</label>
+        <div class="col">
+            <select formControlName="especialidad" class="form-control" [class.is-invalid]="especialidadNoValido">
+                    <option value=""> seleccione una Especialidad </option>
+                    <option *ngFor="let item of ListaEspecialidades" value="{{item}}" >    {{item}} </option>
+                  </select>
+            <!-- <input class="form-control" type="text" placeholder="Ej. Pediatria/ Cirugia General /Medicina General" [class.is-invalid]="especialidadNoValido"> -->
+            <small *ngIf="especialidadNoValido" class="text text-danger"> Campo Requerido </small>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="esMedico">
+        <div class="col" *ngIf="archivos.length === 0  && !usuario.foto">
+            <h3> seleccione una foto </h3>
+            <!-- <div class="custom-file">
+                <input appNgDropFiles formControlName="fotoAux" [archivos]="archivos" type="file" accept="image/*">
+            </div>
+
+            <h3 class="text-center">ó</h3> -->
+
+            <div appNgDropFiles [archivos]="archivos" (mauseSobre)="estaSobreElemento=$event" [ngClass]=" {'file-over': estaSobreElemento } " class="well drop-zone">
+                <h4>Deje caer aqui su foto</h4>
+                <img src='assets/img/drop-images.png' alt="">
+            </div>
+        </div>
+        <div class="col">
+            <img *ngIf="usuario.foto" [src]='usuario.foto' alt="de click en cargar imgaen" class="img-thumbnail">
+        </div>
+    </div>
+    <div *ngIf="esMedico && ( !usuario.foto && archivos.length!==0 )" class="alert alert-warning" role="alert">
+        <b>para poder subir y ver su foto</b> debe dar click en el boton "Cargar Imagen"
+    </div>
+
+    <div class="row" *ngIf="esMedico">
+        <button *ngIf="!usuario.foto" class="btn btn-success" type="button" [disabled]='archivos.length===0' (click)='cargarImagenes()'>Cargar Imagen </button>
+        <button *ngIf="archivos.length === 1 || usuario.foto" class="btn btn-danger" (click)="limpiarArchivos()">Cambiar foto </button>
     </div>
     <h4><small><b> Contacto</b></small></h4>
     <hr>
@@ -97,15 +145,15 @@
         <label class="col-2 col-form-label">correo Electronico</label>
         <div class="col">
             <input class="form-control" type="text" placeholder="Ej. example@medicam.com" formControlName="correo" [class.is-invalid]="correoNoValido">
-            <small *ngIf="correoNoValido" class="text text-danger"> Campo necesario, ingrese unicamente texto en minisculas </small>
+            <small *ngIf="correoNoValido" class="text text-danger"> Campo requerido, ejemplo: <b>example@medicam.com</b>, respetando minusculas</small>
         </div>
     </div>
     <!-- Telefono  -->
     <div class="form-group row">
         <label class="col-2 col-form-label">Telefono</label>
         <div class="col">
-            <input class="form-control" type="text" placeholder="Ej. 555-555-55-55" formControlName="telefono" [class.is-invalid]="telefonoNoValido">
-            <small *ngIf="telefonoNoValido" class="text text-danger"> Campo necesario </small>
+            <input class="form-control" type="tel" placeholder="Ej. 555-555-55-55" formControlName="telefono" [class.is-invalid]="telefonoNoValido">
+            <small *ngIf="telefonoNoValido" class="text text-danger"> Campo requerido, ingrese unicamente numeros y "-", ejemplo: <b>'555-555-55-55'</b> </small>
         </div>
     </div>
     <h4><small><b> Usuario</b></small></h4>
@@ -123,47 +171,30 @@
         <label class="col-2 colform-label">Contraseña</label>
         <div class="form-row col">
             <div class="col">
-                <input class="form-control" type="password" placeholder="Escriba contraseña" formControlName="pass1" [class.is-invalid]="pass1NoValido">
-                <small *ngIf="pass1NoValido" class="text text-danger"> Campo Requerido</small> </div>
+                <div class="input-group">
+                    <input onpaste="return false" (keyup)="validar_clave()" placeholder="Escriba contraseña" formControlName="pass1" [class.is-invalid]="pass1NoValido" [type]="tipoTextoContrasena" Class="form-control">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" (click)="mostrarPassword()"> <span *ngIf="this.mostrarContrasena"  class="fa fa-eye-slash icon"></span>  <span *ngIf="!this.mostrarContrasena"  class="fa fa-eye icon"></span></button>
+                    </div>
+                </div>
+                <!-- </div> -->
+                <!-- <input ID="txtPassword" [type]="tipoTextoContrasena" Class="form-control"> -->
+                <!-- <input class="form-control" type="password"  (keyup)="validar_clave()" placeholder="Escriba contraseña" formControlName="pass1" [class.is-invalid]="pass1NoValido"> -->
+                <small *ngIf="pass1NoValido" class="text text-danger"> Campo Requerido, la contraseña debe tener al menos una longitud de 8 caracteres, una letra mayuscula, una minuscula, un numero y un caracter especial " . : - _ + * "</small>
+                <br>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped " [ngClass]="colorPB" role="progressbar" style="width:  {{contrasenaSegura}}%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+
+            </div>
             <div class="col">
-                <input class="form-control" type="password" placeholder="Repita contraseña" formControlName="pass2" [class.is-invalid]="pass2NoValido">
+                <input onpaste="return false" class="form-control" type="password" placeholder="Repita contraseña" formControlName="pass2" [class.is-invalid]="pass2NoValido">
                 <small *ngIf="pass2NoValido" class="text text-danger"> Las contrasenñas no coinciden</small>
             </div>
         </div>
     </div>
 
-    <!-- ¿es doctor? -->
-    <div class="form-group row" *ngIf="esMedico">
-        <label class="col-2 col-form-label">Cedula Profesional</label>
-        <div class="col">
-            <input class="form-control" type="text" placeholder="Ej. 000000000" formControlName="cedula" [class.is-invalid]="cedulaNoValido">
-            <small *ngIf="cedulaNoValido" class="text text-danger"> Campo necesario </small>
-        </div>
-    </div>
-    <div class="form-group row" *ngIf="esMedico">
-        <label class="col-2 col-form-label">Especialidad</label>
-        <div class="col">
-            <input class="form-control" type="text" placeholder="Ej. Pediatria/ Cirugia General /Medicina General" formControlName="especialidad" [class.is-invalid]="especialidadNoValido">
-            <small *ngIf="especialidadNoValido" class="text text-danger"> Campo necesario </small>
-        </div>
-    </div>
 
-    <div class="row" *ngIf="esMedico">
-        <div class="col" *ngIf="archivos.length === 0  && !usuario.foto">
-            <h3> seleccione una foto </h3>
-            <div appNgDropFiles [archivos]="archivos" (mauseSobre)="estaSobreElemento=$event" [ngClass]=" {'file-over': estaSobreElemento } " class="well drop-zone">
-                <h4>Deje caer aqui la imagen archivos</h4>
-                <img src='assets/img/drop-images.png' alt="">
-            </div>
-        </div>
-        <div class="col">
-            <img *ngIf="usuario.foto" [src]='usuario.foto' alt="de click en cargar imgaen" class="img-thumbnail">
-        </div>
-    </div>
-    <div class="row" *ngIf="esMedico">
-        <button *ngIf="!usuario.foto" class="btn btn-success" type="button" [disabled]='archivos.length===0' (click)='cargarImagenes()'>Cargar Imagen </button>
-        <button *ngIf="archivos.length === 1 || usuario.foto" class="btn btn-danger" (click)="limpiarArchivos()">Cambiar foto </button>
-    </div>
 
 
     <hr>

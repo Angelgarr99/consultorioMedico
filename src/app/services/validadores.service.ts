@@ -130,7 +130,57 @@ export class ValidadoresService {
     });
 
   }
+  
+  validar_clave(control: FormControl): Promise<ErrorValidate> | Observable<ErrorValidate> {
+    let band = true;
+    if (!control.value){
+      return Promise.resolve(null);
+    }
+    const contrasenna = control.value;
+    if (contrasenna.length >= 8)
+    {
+      let mayuscula = false;
+      let minuscula = false;
+      let numero = false;
+      let caracterRaro = false;
 
+      for(let i = 0;i < contrasenna.length; i++)
+      {
+        if(contrasenna.charCodeAt(i) >= 65 && contrasenna.charCodeAt(i) <= 90)
+        {
+          mayuscula = true;
+        }
+        else if(contrasenna.charCodeAt(i) >= 97 && contrasenna.charCodeAt(i) <= 122)
+        {
+          minuscula = true;
+        }
+        else if(contrasenna.charCodeAt(i) >= 48 && contrasenna.charCodeAt(i) <= 57)
+        {
+          numero = true;
+        }
+        else
+        {
+          caracterRaro = true;
+        }
+      }
+      if(mayuscula === true && minuscula === true && caracterRaro === true && numero === true)
+      {
+        band = true;
+      }else{
+        band= false;
+      }
+    }else{
+      band = false;
+    }
+    return new Promise( (resolve, reject) => {   setTimeout(() => {
+      if ( band === false ){
+        resolve({existe: true });
+        }else{
+          resolve(null);
+       }}, 50);
+    });
+
+  }
 
   horaValida(control: FormControl): Promise<ErrorValidate> | Observable<ErrorValidate> {
     if( !control.value){
